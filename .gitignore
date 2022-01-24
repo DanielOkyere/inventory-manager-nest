@@ -76,3 +76,4 @@ typings/
 .fusebox/
 
 ormconfig.json
+dist

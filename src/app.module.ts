@@ -1,18 +1,24 @@
-import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { AdminModule } from './admin/admin.module';
-import { TypeOrmModule } from '@nestjs/typeorm'
-import { Connection } from 'typeorm';
-import { UserModule } from './user/user.module';
-import { AuthModule } from './auth/auth.module';
+import { Module } from "@nestjs/common";
+import { AppController } from "./app.controller";
+import { AppService } from "./app.service";
+import { AdminModule } from "./admin/admin.module";
+import { TypeOrmModule } from "@nestjs/typeorm";
+import { Connection } from "typeorm";
+import { UserModule } from "./user/user.module";
+import { AuthModule } from "./auth/auth.module";
+import { ExpenditureModule } from "./expenditure/expenditure.module";
 
 @Module({
-  imports: [AdminModule, TypeOrmModule.forRoot(), UserModule, AuthModule],
+  imports: [
+    AdminModule,
+    TypeOrmModule.forRoot(),
+    UserModule,
+    AuthModule,
+    ExpenditureModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {
-  constructor(private connection: Connection) {
-  }
+  constructor(private connection: Connection) {}
 }
