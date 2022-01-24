@@ -7,9 +7,7 @@ import { User } from './entities/user.entity';
 
 @Injectable()
 export class UserService {
-  user: Promise<User[]>;
   constructor(@InjectRepository(User) private userRepository: Repository<User>) {
-    this.user = this.userRepository.find();
   }
   
 
@@ -22,7 +20,7 @@ export class UserService {
   }
 
   async findOne(id: number): Promise<User> {
-    return (await this.user).find(user => user.id === id);
+    return this.userRepository.findOneOrFail(+id);
   }
 
 
