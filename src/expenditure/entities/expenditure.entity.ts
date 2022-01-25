@@ -13,7 +13,7 @@ export class Expenditure {
   id: number;
 
   @Column()
-  expenditure: object;
+  expenditure: string;
 
   @Column()
   expenditure_date: Date;

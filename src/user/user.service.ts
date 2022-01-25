@@ -7,6 +7,8 @@ import { User } from "./entities/user.entity";
 
 @Injectable()
 export class UserService {
+  private readonly users:Promise<User[]> = this.userRepository.find();
+  
   constructor(
     @InjectRepository(User) private userRepository: Repository<User>
   ) {}
@@ -23,11 +25,8 @@ export class UserService {
     return this.userRepository.findOneOrFail(+id);
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async findUserByEmail(email: string): Promise<User> {
+    return (await this.users).find(user => user.email === email);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
-  }
 }

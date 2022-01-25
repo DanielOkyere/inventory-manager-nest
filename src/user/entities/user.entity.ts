@@ -16,4 +16,8 @@ export class User {
 
   @Column()
   lastName: string;
+
+  @Column({type:'boolean',
+  default: false})
+  isAdmin: boolean;
 }

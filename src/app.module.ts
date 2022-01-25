@@ -7,6 +7,8 @@ import { Connection } from "typeorm";
 import { UserModule } from "./user/user.module";
 import { AuthModule } from "./auth/auth.module";
 import { ExpenditureModule } from "./expenditure/expenditure.module";
+import { APP_GUARD } from "@nestjs/core";
+import { RolesGaurd } from "./roles.gaurd";
 
 @Module({
   imports: [
@@ -17,7 +19,12 @@ import { ExpenditureModule } from "./expenditure/expenditure.module";
     ExpenditureModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService,
+    {
+      provide: APP_GUARD,
+      useClass: RolesGaurd
+    }
+  ],
 })
 export class AppModule {
   constructor(private connection: Connection) {}
