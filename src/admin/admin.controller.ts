@@ -16,19 +16,19 @@ export class AdminController {
   constructor(private readonly adminService: AdminService) {}
 
   @Post()
-  @Roles(Role.Admin)
+  // @Roles(Role.Admin)
   create(@Body() createAdminDto: CreateAdminDto) {
     return this.adminService.create(createAdminDto);
   }
 
   @Get()
-  @Roles(Role.Admin)
+  // @Roles(Role.Admin)
   findAll() {
     return this.adminService.findAll();
   }
 
   @Get(":id")
-  @Roles(Role.Admin)
+  // @Roles(Role.Admin)
   findOne(@Param("id") id: string) {
     return this.adminService.findOne(+id);
   }

@@ -11,6 +11,11 @@ export class Admin {
     @Column()
     password: string;
 
+    @Column({
+      nullable:true
+    })
+    salt:string;
+
     @Column()
     firstName: string;
 

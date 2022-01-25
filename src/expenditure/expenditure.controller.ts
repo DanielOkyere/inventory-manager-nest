@@ -6,18 +6,24 @@ import {
   Patch,
   Param,
   Delete,
+  Req
 } from "@nestjs/common";
 import { ExpenditureService } from "./expenditure.service";
 import { CreateExpenditureDto } from "./dto/create-expenditure.dto";
 import { UpdateExpenditureDto } from "./dto/update-expenditure.dto";
+import { CreateUserDto } from "src/user/dto/create-user.dto";
 
 @Controller("expenditure")
 export class ExpenditureController {
   constructor(private readonly expenditureService: ExpenditureService) {}
 
   @Post()
-  create(@Body() createExpenditureDto: CreateExpenditureDto) {
-    return this.expenditureService.create(createExpenditureDto);
+  create(@Body() createExpenditureDto: CreateExpenditureDto, @Req() user:CreateUserDto) {
+    const dto = {
+      ...createExpenditureDto,
+      user_id: user.id
+    }
+    return this.expenditureService.create(dto);
   }
 
   @Get()
