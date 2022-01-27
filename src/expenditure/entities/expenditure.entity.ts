@@ -13,10 +13,15 @@ export class Expenditure {
   id: number;
 
   @Column()
-  expenditure: string;
+  expenditure_title: string;
 
   @Column()
-  expenditure_date: Date;
+  expenditure_amount: number;
+
+  @Column(
+    {nullable: true}
+  )
+  description: string;
 
   @OneToOne(() => User)
   @JoinColumn()

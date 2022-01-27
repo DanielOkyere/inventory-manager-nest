@@ -12,15 +12,15 @@ export class ExpenditureService {
     private expenditureRepository: Repository<Expenditure>
   ){}
   create(createExpenditureDto: CreateExpenditureDto) {
-    return "This action adds a new expenditure";
+    return this.expenditureRepository.save(createExpenditureDto);
   }
 
   findAll() {
-    return `This action returns all expenditure`;
+    return this.expenditureRepository.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} expenditure`;
+    return this.expenditureRepository.findOne(+id);
   }
 
   update(id: number, updateExpenditureDto: UpdateExpenditureDto) {

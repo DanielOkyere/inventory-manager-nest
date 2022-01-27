@@ -30,7 +30,6 @@ import { ConfigModule } from "@nestjs/config";
         UserModule,
         AuthModule,
         ExpenditureModule,
-        ConfigModule.forRoot()
     ],
     controllers: [AppController],
     providers: [

@@ -1,5 +1,6 @@
 export class CreateExpenditureDto {
-  expenditure: object;
-  expenditure_date: Date;
+  expenditure_title: string;
+  expenditure_amount: number;
+  expenditure:string;
   user_id: number;
 }
