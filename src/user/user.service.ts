@@ -35,7 +35,7 @@ export class UserService {
     return this.userRepository.findOneOrFail(+id);
   }
 
-  async findUserByEmail(email: string): Promise<User> {
+  async findUserByEmail(email: string): Promise<User| undefined> {
     return (await this.users).find(user => user.email === email);
   }
 

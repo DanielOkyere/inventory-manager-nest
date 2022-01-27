@@ -4,12 +4,13 @@ import {
   PrimaryGeneratedColumn,
   OneToOne,
   JoinColumn,
+  ObjectIdColumn,
 } from "typeorm";
 import { User } from "src/user/entities/user.entity";
 
 @Entity()
 export class Expenditure {
-  @PrimaryGeneratedColumn()
+  @ObjectIdColumn()
   id: number;
 
   @Column()
