@@ -8,7 +8,7 @@ import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
-  private readonly users:Promise<User[]> = this.userRepository.find();
+  private readonly users = [];
   
   constructor(
     @InjectRepository(User) private userRepository: Repository<User>
@@ -23,8 +23,8 @@ export class UserService {
       password: hash,
       salt,
     }
-
-    return this.userRepository.save(dto);
+    await this.userRepository.save(dto);
+    return "User Added Successfully";
   }
 
   findAll() {
@@ -35,7 +35,7 @@ export class UserService {
     return this.userRepository.findOneOrFail(+id);
   }
 
-  async findUserByEmail(email: string): Promise<User| undefined> {
+  async findUserByEmail(email: string): Promise<CreateUserDto> {
     return (await this.users).find(user => user.email === email);
   }
 

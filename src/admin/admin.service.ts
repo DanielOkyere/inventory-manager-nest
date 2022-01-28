@@ -32,11 +32,13 @@ export class AdminService {
     return this.adminRepository.findOne(+id);
   }
 
-  update(id: number, updateAdminDto: Admin) {
-    return `This action updates a #${id} admin`;
+  async update(id: number, updateAdminDto: Admin) {
+    await this.adminRepository.update(id, updateAdminDto);
+    return `Admin with id: ${id} has been updated`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} admin`;
+  async remove(id: number) {
+    await this.adminRepository.delete(id);
+    return `Admin with id: ${id} has been deleted`;
   }
 }

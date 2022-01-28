@@ -48,4 +48,9 @@ export class ExpenditureController {
   remove(@Param("id") id: string) {
     return this.expenditureService.remove(+id);
   }
+
+  @Get("/user/:id")
+  getUserExpenditures(@Param("id") id: string) {
+    return this.expenditureService.getUserExpenditures(+id);
+  }
 }

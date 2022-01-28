@@ -16,9 +16,8 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @UseGuards(JwtAuthGuard)
   @Post("auth/login")
   async login(@Request() req) {
-    return this.authService.validate(req.user.email, req.user.password);
+    return this.authService.validate(req.body.email, req.body.password);
   }
 }

@@ -23,11 +23,20 @@ export class ExpenditureService {
     return this.expenditureRepository.findOne(+id);
   }
 
-  update(id: number, updateExpenditureDto: UpdateExpenditureDto) {
-    return `This action updates a #${id} expenditure`;
+  async update(id: number, updateExpenditureDto: UpdateExpenditureDto) {
+    await this.expenditureRepository.update(id, updateExpenditureDto);
+    return `Expenditure with id: ${id} has been updated`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} expenditure`;
+  async remove(id: number) {
+    await this.expenditureRepository.delete(id);
+    return `Expenditure with id: ${id} has been deleted`;
+  }
+
+  getUserExpenditures(id: number) {
+    return this.expenditureRepository.find({
+      where: {
+        user_id: id
+      }});
   }
 }
