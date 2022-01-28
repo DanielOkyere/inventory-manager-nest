@@ -20,7 +20,15 @@ import { ConfigModule, ConfigService } from "@nestjs/config";
         ConfigModule.forRoot({
             isGlobal: true,
         }),
-        TypeOrmModule.forRoot(),
+        TypeOrmModule.forRoot({
+            type: "mongodb",
+            url: process.env.DB_URL,
+            useNewUrlParser: true,
+            logging: true,
+            entities: ["dist/**/*.entity{.ts,.js}"],
+            synchronize: false,
+            useUnifiedTopology: true,
+        }),
     ],
     controllers: [AppController],
     providers: [

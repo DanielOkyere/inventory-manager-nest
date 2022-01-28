@@ -1,9 +1,0 @@
-{
-      "type": "mongodb",
-      "url": "mongodb+srv://daniel:j30ywhQIUD7gVUZC@cluster0.v59pc.mongodb.net/inventory_manager?retryWrites=true&w=majority",
-      "useNewUrlParser": true,
-      "logging": true,
-      "entities": ["dist/**/*.entity{.ts,.js}"],
-      "synchronize": false,
-      "useUnifiedTopology": true
-}
