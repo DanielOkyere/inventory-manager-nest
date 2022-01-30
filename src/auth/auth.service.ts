@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { AdminService } from "src/admin/admin.service";
 import { UserService } from "src/user/user.service";
@@ -20,7 +20,7 @@ export class AuthService {
       const { password,salt, ...result } = user;
       return result;
     }
-    return null;
+    throw new UnauthorizedException();
   }
 
   async validateAdmin(email: string, pass: string): Promise<any> {
@@ -30,7 +30,7 @@ export class AuthService {
             const { password, salt, ...result } = admin;
             return result;
         }
-        return null;
+        throw new UnauthorizedException();
     }
 
   async login(user: any) {

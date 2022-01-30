@@ -32,7 +32,7 @@ private readonly admins = this.findAll().then(
       password: hash,
       salt,
     }
-    return this.adminRepository.save(createAdminDto);
+    return this.adminRepository.save(dto);
   }
 
   findAll() {
