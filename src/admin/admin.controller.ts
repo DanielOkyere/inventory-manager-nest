@@ -21,15 +21,7 @@ export class AdminController {
 
   @Post("/signup")
   async create(@Body() createAdminDto: CreateAdminDto) {
-    const {password}= createAdminDto;
-    const salt =  bcrypt.genSaltSync();
-    const hash =  bcrypt.hashSync(password, salt);
-    const dto:CreateAdminDto = {
-      ...createAdminDto,
-      password: hash,
-      salt,
-    }
-    await this.adminService.create(dto);
+    await this.adminService.create(createAdminDto);
     return "Admin Created Successufully";
   }
 
