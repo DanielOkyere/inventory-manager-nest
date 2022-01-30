@@ -15,26 +15,26 @@ export class AuthService {
 
   async validate(email: string, pass: string): Promise<any> {
     const user = await this.userService.findUserByEmail(email);
-    const isAmatch = await bcrypt.compare(pass, user.salt);
+    const isAmatch = await bcrypt.compare(pass, user.password);
     if (user && isAmatch) {
-      const { password, ...result } = user;
+      const { password,salt, ...result } = user;
       return result;
     }
     return null;
   }
 
-  async validateAdmin(id: number, pass: string): Promise<any> {
-      const admin = await this.adminService.findOne(id);
-      const isAmatch = await bcrypt.compare(pass, admin.salt);
-        if (admin && admin.password === pass) {
-            const { password, ...result } = admin;
+  async validateAdmin(email: string, pass: string): Promise<any> {
+      const admin = await this.adminService.findAdminByEmail(email);
+      const isAmatch = await bcrypt.compare(pass, admin.password);
+        if (admin && isAmatch) {
+            const { password, salt, ...result } = admin;
             return result;
         }
         return null;
     }
 
   async login(user: any) {
-    const payload = { id: user.id, username: user.username };
+    const payload = { id: user.id, email: user.email };
     return {
       access_token: this.jwtService.sign(payload),
     };

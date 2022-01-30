@@ -1,8 +1,7 @@
 import { Controller, Get, Post, Request, UseGuards } from "@nestjs/common";
-import { AuthGuard } from "@nestjs/passport";
 import { AppService } from "./app.service";
 import { AuthService } from "./auth/auth.service";
-import { JwtAuthGuard } from "./auth/jwt-auth.gaurd";
+import { LocalAuthGaurd } from "./auth/local-auth.gaurd";
 
 @Controller()
 export class AppController {
@@ -16,8 +15,15 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @Post("auth/login")
+
+  @Post("/user/auth/login")
   async login(@Request() req) {
-    return this.authService.validate(req.body.email, req.body.password);
+    const user = await this.authService.validate(req.body.email, req.body.password);
+    return this.authService.login(user);
+  }
+  @Post("/admin/auth/login")
+  async loginAdmin( @Request() req) {
+    const admin = await this.authService.validateAdmin(req.body.email, req.body.password);
+    return this.authService.login(admin);
   }
 }

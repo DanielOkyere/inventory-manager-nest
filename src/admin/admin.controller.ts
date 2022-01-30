@@ -5,6 +5,7 @@ import {
   Body,
   Param,
   Patch,
+  Request,
 } from "@nestjs/common";
 import { Role } from "src/role.enum";
 import { Roles } from "src/roles.decorator";
@@ -15,9 +16,10 @@ import * as bcrypt from "bcrypt";
 
 @Controller("admin")
 export class AdminController {
-  constructor(private readonly adminService: AdminService) {}
+  constructor(private readonly adminService: AdminService,
+  ) {}
 
-  @Post()
+  @Post("/signup")
   async create(@Body() createAdminDto: CreateAdminDto) {
     const {password}= createAdminDto;
     const salt =  bcrypt.genSaltSync();

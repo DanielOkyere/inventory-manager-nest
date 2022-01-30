@@ -24,4 +24,7 @@ export class Admin {
 
     @Column({ type: "boolean", default: true })
     isAdmin: boolean;
+    
+    @Column()
+    roles: string[];
 }

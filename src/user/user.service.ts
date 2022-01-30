@@ -8,7 +8,16 @@ import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
-  private readonly users = [];
+  private readonly users = this.findAll().then(
+   users => users.map(user => ({
+      id: user.id,
+      email: user.email,
+      roles: user.roles,
+      firstName: user.firstName,
+      password: user.password,
+      salt: user.salt,
+      lastName: user.lastName,})
+  ));
   
   constructor(
     @InjectRepository(User) private userRepository: Repository<User>
@@ -35,8 +44,8 @@ export class UserService {
     return this.userRepository.findOneOrFail(+id);
   }
 
-  async findUserByEmail(email: string): Promise<CreateUserDto> {
-    return (await this.users).find(user => user.email === email);
+   findUserByEmail(email: string) {
+    return  this.users.then(users => users.find(user => (user.email === email)? user : null));
   }
 
 }

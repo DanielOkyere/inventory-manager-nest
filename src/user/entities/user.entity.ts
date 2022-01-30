@@ -25,4 +25,7 @@ export class User {
   @Column({type:'boolean',
   default: false})
   isAdmin: boolean;
+
+  @Column()
+  roles: string[];
 }
