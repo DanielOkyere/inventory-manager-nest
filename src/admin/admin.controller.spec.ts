@@ -1,3 +1,4 @@
+import { forwardRef } from "@nestjs/common";
 import { Test, TestingModule } from "@nestjs/testing";
 import { AdminController } from "./admin.controller";
 import { AdminService } from "./admin.service";
@@ -9,6 +10,7 @@ describe("AdminController", () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [AdminController],
       providers: [AdminService],
+      imports: [],
     }).compile();
 
     controller = module.get<AdminController>(AdminController);
