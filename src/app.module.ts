@@ -3,13 +3,15 @@ import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { AdminModule } from "./admin/admin.module";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { Connection, createConnection } from "typeorm";
 import { UserModule } from "./user/user.module";
 import { AuthModule } from "./auth/auth.module";
 import { ExpenditureModule } from "./expenditure/expenditure.module";
 import { APP_GUARD } from "@nestjs/core";
-import { RolesGaurd } from "./roles.gaurd";
-import { ConfigModule, ConfigService } from "@nestjs/config";
+import { ConfigModule } from "@nestjs/config";
+import configuration from "./config/configuration";
+import {utilities as nestWinstonModuleUtilities, WinstonModule } from "nest-winston";
+import * as winston from "winston";
+
 
 @Module({
     imports: [
@@ -19,6 +21,7 @@ import { ConfigModule, ConfigService } from "@nestjs/config";
         ExpenditureModule,
         ConfigModule.forRoot({
             isGlobal: true,
+            load: [configuration],
         }),
         TypeOrmModule.forRoot({
             type: "mongodb",
@@ -29,14 +32,26 @@ import { ConfigModule, ConfigService } from "@nestjs/config";
             synchronize: false,
             useUnifiedTopology: true,
         }),
+        WinstonModule.forRoot({
+            transports: [
+                new winston.transports.File({
+                    filename: "logs/log.log",
+                    level: "combined",
+                }),
+                new winston.transports.Console({
+                    format: winston.format.combine(
+                        winston.format.colorize(),
+                        winston.format.ms(),
+                        winston.format.timestamp(),
+                        nestWinstonModuleUtilities.format.nestLike("Inventory",{prettyPrint: true}))
+                })
+            ],
+
+        }),
     ],
     controllers: [AppController],
     providers: [
         AppService,
-        {
-            provide: APP_GUARD,
-            useClass: RolesGaurd,
-        },
     ],
 })
 export class AppModule {}

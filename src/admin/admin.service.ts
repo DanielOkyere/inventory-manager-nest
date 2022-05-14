@@ -4,6 +4,7 @@ import { CreateAdminDto } from "./dto/create-admin.dto";
 import { Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
 import * as bcrypt from 'bcrypt';
+import { Role } from "src/role.enum";
 
 @Injectable()
 export class AdminService {
@@ -31,6 +32,7 @@ private readonly admins = this.findAll().then(
       ...createAdminDto,
       password: hash,
       salt,
+      roles: [Role.Admin]
     }
     return this.adminRepository.save(dto);
   }
