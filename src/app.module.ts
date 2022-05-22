@@ -10,6 +10,7 @@ import { APP_GUARD } from "@nestjs/core";
 import { ConfigModule } from "@nestjs/config";
 import configuration from "./config/configuration";
 import {utilities as nestWinstonModuleUtilities, WinstonModule } from "nest-winston";
+import { RegionModule } from './region/region.module';
 import * as winston from "winston";
 
 
@@ -48,6 +49,7 @@ import * as winston from "winston";
             ],
 
         }),
+        RegionModule,
     ],
     controllers: [AppController],
     providers: [
